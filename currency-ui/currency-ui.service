@@ -1,0 +1,19 @@
+[Unit]
+Description=Currency Monitor Frontend (Vite)
+After=network.target
+
+[Service]
+# The user that runs the service
+User=pi
+# The directory where your package.json is located
+WorkingDirectory=/home/pi/ssd/scripts/python/exchange-monitor/currency-ui
+# Path to npm (check with 'which npm' if this fails)
+ExecStart=/usr/bin/npm run dev -- --host
+# Restart the service if it crashes
+Restart=always
+RestartSec=10
+# Environment variables if needed
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target

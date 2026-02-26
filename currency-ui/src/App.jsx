@@ -5,16 +5,19 @@ function App() {
   const [data, setData] = useState(null);
   const [history, setHistory] = useState([]);
   const [error, setError] = useState(false);
+  const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
   const fetchData = async () => {
     try {
       // Fetch latest status
-      const resStatus = await fetch('http://127.0.0.1:8000/');
+      // const resStatus = await fetch('http://192.168.5.248:8000/');
+      const resStatus = await fetch(`${API_BASE}/`);
       const statusJson = await resStatus.json();
       setData(statusJson);
 
       // Fetch chart history
-      const resHistory = await fetch('http://127.0.0.1:8000/history');
+      // const resHistory = await fetch('http://192.168.5.248:8000/history');
+      const resHistory = await fetch(`${API_BASE}/history`);
       const historyJson = await resHistory.json();
       setHistory(historyJson);
       
@@ -42,7 +45,8 @@ function App() {
           </div>
           <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700">
             <p className="text-sm text-slate-400 uppercase tracking-widest">Monthly High</p>
-            <p className="text-5xl font-mono text-amber-400">{data?.monthly_high?.toFixed(4) || "---"}</p>
+            <p className="text-xs text-slate-400 uppercase mb-1">High (Last {data?.effective_days || "--"} days)</p>
+            <p className="text-2xl font-mono text-amber-400">{data?.high_period?.toFixed(4)}</p>
           </div>
         </div>
 

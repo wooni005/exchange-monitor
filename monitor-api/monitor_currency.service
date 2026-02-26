@@ -1,0 +1,12 @@
+[Unit]
+Description=FastAPI Currency Monitor
+After=network.target
+
+[Service]
+User=pi
+WorkingDirectory=/home/pi/scripts/python/exchange-monitor/monitor-api
+ExecStart=/usr/bin/python3 monitor.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
